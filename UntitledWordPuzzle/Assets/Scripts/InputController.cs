@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class InputController : MonoBehaviour
 {
     [SerializeField] private float CamSpeed;
     private Camera _cam;
