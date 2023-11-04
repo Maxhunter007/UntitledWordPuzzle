@@ -7,6 +7,7 @@ public class InputController : MonoBehaviour
     private Camera _cam;
     private PlayerInput _playerInput;
     private MouseController _mouseController;
+    
     private void Awake()
     {
         _cam = Camera.main;
@@ -34,7 +35,7 @@ public class InputController : MonoBehaviour
     private void OnPointerDown(InputAction.CallbackContext context)
     {
         RaycastHit2D hit = Physics2D.GetRayIntersection(_cam.ScreenPointToRay(Mouse.current.position.value));
-        if (hit.collider && hit.rigidbody.gameObject.CompareTag("Letter"))
+        if (hit.collider && hit.collider.gameObject.CompareTag("Letter"))
         {
             _mouseController.PickUpLetter(hit.rigidbody.gameObject.GetComponent<Letter>());
         }

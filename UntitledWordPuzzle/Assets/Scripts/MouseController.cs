@@ -33,7 +33,10 @@ public class MouseController : MonoBehaviour
         if (_letter)
         {
             _letter.transform.SetParent(null);
-            _letter.GetComponent<Rigidbody2D>().gravityScale = 3;
+            if (!_letter.HasSnapPosition)
+            {
+                _letter.GetComponent<Rigidbody2D>().gravityScale = 3;
+            }
         }
         _letter = null;
     }
