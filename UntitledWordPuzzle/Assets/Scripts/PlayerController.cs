@@ -9,9 +9,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float CamSpeed;
     private Camera _cam;
     private PlayerInput _playerInput;
+    private MouseController _mouseController;
     private void Awake()
     {
         _cam = Camera.main;
+        _mouseController = FindObjectOfType<MouseController>();
         
         _playerInput = new PlayerInput();
         _playerInput.Enable();
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.GetRayIntersection(_cam.ScreenPointToRay(Mouse.current.position.value));
         if (hit && hit.rigidbody.gameObject.CompareTag("Letter"))
         {
-            
+            _mouseController.PickUpLetter(hit.rigidbody.gameObject.GetComponent<Letter>());
         }
     }
 }

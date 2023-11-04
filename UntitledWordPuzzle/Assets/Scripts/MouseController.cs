@@ -20,7 +20,17 @@ public class MouseController : MonoBehaviour
     
     public void PickUpLetter(Letter letter)
     {
+        if (_letter)
+        {
+            DropLetter();
+        }
         letter.transform.SetParent(transform);
         _letter = letter;
+    }
+
+    public void DropLetter()
+    {
+        _letter.transform.SetParent(null);
+        _letter = null;
     }
 }
