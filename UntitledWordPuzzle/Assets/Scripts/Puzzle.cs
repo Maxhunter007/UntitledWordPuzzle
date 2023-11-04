@@ -1,6 +1,8 @@
 using Unity.Mathematics;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class Puzzle
+public class Puzzle : MonoBehaviour
 {
     public string CurrentLetters;
     

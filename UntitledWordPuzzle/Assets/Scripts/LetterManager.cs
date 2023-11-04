@@ -11,11 +11,19 @@ public class LetterManager : MonoBehaviour
     private Sprite _aSprite;
     private Sprite _boxSprite;
     
-    
-    // Start is called before the first frame update
-    private void OnEnable()
+    public void Awake()
     {
-        _activePuzzle = new Puzzle("Hand", "Pizza");
+        Enable();
+    }
+    public void Enable(Puzzle puzzle = null)
+    {
+        if(_activePuzzle)
+        {
+            _activePuzzle = puzzle;
+        }
+        else{
+
+        }
         _aSprite = Resources.Load<Sprite>("Pics/A");
         _boxSprite = Resources.Load<Sprite>("Pics/Box");
         _containers = new GameObject[_activePuzzle.LetterAmount];
@@ -31,11 +39,9 @@ public class LetterManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnDisable()
     {
-        
+        //alle children durchgehen & löschen
     }
-
 
 }

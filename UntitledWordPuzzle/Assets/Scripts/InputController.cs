@@ -7,7 +7,8 @@ public class InputController : MonoBehaviour
     private Camera _cam;
     private PlayerInput _playerInput;
     private MouseController _mouseController;
-    
+    private LetterManager _letterManager;
+
     private void Awake()
     {
         _cam = Camera.main;
@@ -38,6 +39,11 @@ public class InputController : MonoBehaviour
         if (hit.collider && hit.collider.gameObject.CompareTag("Letter"))
         {
             _mouseController.PickUpLetter(hit.rigidbody.gameObject.GetComponent<Letter>());
+        }
+        if (hit.collider && hit.rigidbody.gameObject.CompareTag("Puzzle"))
+        {
+            _letterManager.OnDisable();
+            _letterManager.Enable(hit.transform.gameObject.GetComponent<Puzzle>());
         }
     }
 
