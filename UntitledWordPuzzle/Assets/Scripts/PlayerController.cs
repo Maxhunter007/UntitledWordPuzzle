@@ -36,15 +36,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnPointerDown(InputAction.CallbackContext context)
     {
-        
+        RaycastHit2D hit = Physics2D.GetRayIntersection(_cam.ScreenPointToRay(Mouse.current.position.value));
+        if (hit.collider && hit.rigidbody.gameObject.CompareTag("Letter"))
+        {
+            _mouseController.PickUpLetter(hit.rigidbody.gameObject.GetComponent<Letter>());
+        }
     }
 
     private void OnPointerUp(InputAction.CallbackContext context)
     {
-        RaycastHit2D hit = Physics2D.GetRayIntersection(_cam.ScreenPointToRay(Mouse.current.position.value));
-        if (hit && hit.rigidbody.gameObject.CompareTag("Letter"))
-        {
-            _mouseController.PickUpLetter(hit.rigidbody.gameObject.GetComponent<Letter>());
-        }
+        _mouseController.DropLetter();
     }
 }
