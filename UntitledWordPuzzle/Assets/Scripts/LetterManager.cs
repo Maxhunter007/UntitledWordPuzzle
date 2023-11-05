@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LetterManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class LetterManager : MonoBehaviour
     private GameObject[] _containers;
     private GameObject[] _letters;
     private Sprite _boxSprite;
+    [SerializeField] private string ContainedLetters;
 
     public void Awake()
     {
@@ -64,17 +66,16 @@ public class LetterManager : MonoBehaviour
 
     public void CheckForSolution()
     {
-        var currentLetters = "";
+        ContainedLetters = "";
         foreach (var container in _containers)
         {
             var letterContainer = container.GetComponent<LetterContainer>();
             if (letterContainer.ContainedLetter)
             {
-                currentLetters += letterContainer.ContainedLetter.TextContent;
+                ContainedLetters += letterContainer.ContainedLetter.TextContent;
             }
         }
-
-        if (currentLetters.Equals(_activePuzzle.Solution))
+        if (ContainedLetters.ToUpper().Equals(_activePuzzle.Solution.ToUpper()))
         {
             _activePuzzle.SetPuzzleSolved();
         }

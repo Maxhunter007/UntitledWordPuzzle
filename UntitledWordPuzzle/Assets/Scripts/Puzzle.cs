@@ -17,6 +17,7 @@ public class Puzzle : MonoBehaviour
 
     public void SetPuzzleSolved()
     {
+        Debug.Log("Puzzle Solved");
         transform.GetComponent<SpriteRenderer>().sprite = solutionSprite;
         transform.GetComponent<BoxCollider2D>().enabled = false;
         //highlight weg?
