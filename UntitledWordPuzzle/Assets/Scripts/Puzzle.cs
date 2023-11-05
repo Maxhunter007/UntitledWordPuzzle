@@ -25,7 +25,6 @@ public class Puzzle : MonoBehaviour
     {
         transform.GetComponent<SpriteRenderer>().sprite = solutionSprite;
         Destroy(transform.GetComponent<Collider2D>());
-        //highlight weg?
     }
 
 }
