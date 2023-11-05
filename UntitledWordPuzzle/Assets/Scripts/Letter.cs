@@ -24,12 +24,13 @@ public class Letter : MonoBehaviour
         set => _textMesh.text = value;
     }
 
-    private void Start()
+    private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _textMesh = GetComponent<TextMeshPro>();
         
         _mouseController = FindObjectOfType<MouseController>();
+        
     }
 
     private void Update()

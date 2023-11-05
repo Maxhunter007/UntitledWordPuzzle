@@ -18,12 +18,19 @@ public class LetterManager : MonoBehaviour
 
     public bool SolutionCheckAvailable = false;
 
+    public Action OnNextUpdate;
+
 
     public void Awake()
     {
         _boxSprite = Resources.Load<Sprite>("Pics/Box");
     }
-    
+
+    private void Update()
+    {
+        OnNextUpdate?.Invoke();
+    }
+
     public void Enable(Puzzle puzzle)
     {
         SolutionCheckAvailable = false;
@@ -54,6 +61,7 @@ public class LetterManager : MonoBehaviour
                 var letter = Instantiate(LetterPrefab, position, Quaternion.identity);
                 letter.GetComponent<TMP_Text>().text = "" + _activePuzzle.CurrentLetters[i-spaces];
                 _letters[i] = letter;
+                letter.GetComponent<Letter>().SnapToContainer(container.GetComponent<LetterContainer>());
             }
         }
 
@@ -114,6 +122,11 @@ public class LetterManager : MonoBehaviour
     {
         if(!SolutionCheckAvailable) return;
         ContainedLetters = "";
+        if (_containers == null)
+        {
+            OnNextUpdate -= CheckForSolution;
+            return;
+        }
         foreach (var container in _containers)
         {
             if (container)
@@ -134,6 +147,7 @@ public class LetterManager : MonoBehaviour
         {
             ExitPuzzle();
         }
+        OnNextUpdate -= CheckForSolution;
     }
 
 }

@@ -6,10 +6,23 @@ public class LetterContainer : MonoBehaviour
     public Letter ContainedLetter;
 
     private LetterManager _letterManager;
-
+    private Camera _cam;
     private void Start()
     {
+        _cam = Camera.main;
         _letterManager = FindObjectOfType<LetterManager>();
+    }
+
+    private void Update()
+    {
+        Ray ray = new Ray(transform.position, Vector3.forward);
+        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 20, ~(1<<5));
+        if (hit.collider && hit.collider.gameObject.CompareTag("Letter"))
+        {
+            var letter = hit.collider.gameObject.GetComponent<Letter>();
+            letter.SnapToContainer(this);
+            ContainedLetter = letter; 
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -19,7 +32,7 @@ public class LetterContainer : MonoBehaviour
         {
             ContainedLetter = other.GetComponent<Letter>();
             ContainedLetter.SnapToContainer(this);
-            _letterManager.CheckForSolution();
+            _letterManager.OnNextUpdate += _letterManager.CheckForSolution;
         }
     }
 
@@ -39,6 +52,6 @@ public class LetterContainer : MonoBehaviour
                 letter.DisableGravity();
             }
         }
-        _letterManager.CheckForSolution();
+        _letterManager.OnNextUpdate += _letterManager.CheckForSolution;
     }
 }
