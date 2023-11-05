@@ -15,7 +15,6 @@ public class LetterManager : MonoBehaviour
     private GameObject[] _letters;
     private Sprite _boxSprite;
     [SerializeField] private string ContainedLetters;
-    private bool _activepuzzleSolved;
 
     public bool SolutionCheckAvailable = false;
 
@@ -61,18 +60,40 @@ public class LetterManager : MonoBehaviour
         SolutionCheckAvailable = true;
     }
 
+    public void ExitPuzzle()
+    {
+        SolutionCheckAvailable = false;
+        for (int i = 0; i < _containers.Length; i++)
+        {
+            Destroy(_containers[i]);
+
+            for (int j = 0; j < _activePuzzle.Solution.Length; j++)
+            {
+                string solution = _activePuzzle.Solution[j] + "";
+                string puzzleLetter = _letters[i].GetComponent<TMP_Text>().text.ToLower();
+                if (puzzleLetter.Equals(solution.ToLower()))
+                {
+                    Destroy(_letters[i]);
+                }
+            }
+        }
+        _containers = null;
+
+
+        _letters = null;
+
+        _activePuzzle.SetPuzzleSolved();
+        _activePuzzle = null;
+        SolutionCheckAvailable = true;
+    }
+
     public void Disable()
     {
         SolutionCheckAvailable = false;
         
         if (_activePuzzle)
         {
-            if(!_activepuzzleSolved)
-            {
-                _activePuzzle.TogglePuzzleClickability();
-            }
-            _activepuzzleSolved = false;
-
+            _activePuzzle.TogglePuzzleClickability();
             for (int i = 0; i < _containers.Length; i++)
             {
                 Destroy(_containers[i]);
@@ -111,10 +132,7 @@ public class LetterManager : MonoBehaviour
         Debug.Log(ContainedLetters);
         if (ContainedLetters.ToUpper().Equals(_activePuzzle.Solution.ToUpper()))
         {
-            _activepuzzleSolved = true;
-            Disable();
-            _activePuzzle.SetPuzzleSolved();
-            _activePuzzle = null;
+            ExitPuzzle();
         }
     }
 

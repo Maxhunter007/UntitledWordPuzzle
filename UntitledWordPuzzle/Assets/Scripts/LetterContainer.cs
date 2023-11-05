@@ -14,7 +14,7 @@ public class LetterContainer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Enter");
+        //Debug.Log("Enter");
         if (other.CompareTag("Letter"))
         {
             ContainedLetter = other.GetComponent<Letter>();
@@ -25,7 +25,7 @@ public class LetterContainer : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Exit");
+        //Debug.Log("Exit");
         if (other.CompareTag("Letter"))
         {
             var letter = other.GetComponent<Letter>();
