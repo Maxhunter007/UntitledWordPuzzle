@@ -5,12 +5,12 @@ public class LetterManager : MonoBehaviour
     [SerializeField] private GameObject ContainerPrefab;
 
     [SerializeField] private float ContainerDistance;
-    
+
     private Puzzle _activePuzzle;
     private GameObject[] _containers;
     private Sprite _aSprite;
     private Sprite _boxSprite;
-    
+
     public void Awake()
     {
         _aSprite = Resources.Load<Sprite>("Pics/A");
@@ -24,8 +24,8 @@ public class LetterManager : MonoBehaviour
         _boxSprite = Resources.Load<Sprite>("Pics/Box");
         _containers = new GameObject[_activePuzzle.LetterAmount];
 
-        var initializationPosition = -(ContainerDistance + _boxSprite.rect.width * ContainerPrefab.transform.localScale.x / _boxSprite.pixelsPerUnit / 2) * (_activePuzzle.LetterAmount-1);
-        
+        var initializationPosition = -(ContainerDistance + _boxSprite.rect.width * ContainerPrefab.transform.localScale.x / _boxSprite.pixelsPerUnit / 2) * (_activePuzzle.LetterAmount - 1);
+
         for (int i = 0; i < _activePuzzle.LetterAmount; i++)
         {
             var gameObject = Instantiate(ContainerPrefab, transform.parent);
