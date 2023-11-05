@@ -23,11 +23,11 @@ public class LetterManager : MonoBehaviour
     {
         _boxSprite = Resources.Load<Sprite>("Pics/Box");
     }
-    
+
     public void Enable(Puzzle puzzle)
     {
         SolutionCheckAvailable = false;
-        
+
         puzzle.TogglePuzzleClickability();
         _activePuzzle = puzzle;
         _containers = new GameObject[_activePuzzle.LetterAmount];
@@ -52,7 +52,7 @@ public class LetterManager : MonoBehaviour
             {
                 Vector3 position = new(container.transform.position.x, container.transform.position.y);
                 var letter = Instantiate(LetterPrefab, position, Quaternion.identity);
-                letter.GetComponent<TMP_Text>().text = "" + _activePuzzle.CurrentLetters[i-spaces];
+                letter.GetComponent<TMP_Text>().text = "" + _activePuzzle.CurrentLetters[i - spaces];
                 _letters[i] = letter;
             }
         }
@@ -63,23 +63,32 @@ public class LetterManager : MonoBehaviour
     public void ExitPuzzle()
     {
         SolutionCheckAvailable = false;
+        for (int i = 0; i < _letters.Length; i++)
+        {
+            _letters[i].GetComponent<Letter>().ReleaseAll();
+        }
+
         for (int i = 0; i < _containers.Length; i++)
         {
             Destroy(_containers[i]);
+        }
 
-            for (int j = 0; j < _activePuzzle.Solution.Length; j++)
+        for (int j = 0; j < _activePuzzle.CurrentLetters.Length; j++)
+        {
+            if (char.IsLower(_activePuzzle.CurrentLetters[j]))
             {
-                string solution = _activePuzzle.Solution[j] + "";
-                string puzzleLetter = _letters[i].GetComponent<TMP_Text>().text.ToLower();
-                if (puzzleLetter.Equals(solution.ToLower()))
+                for (int i = 0; i < _letters.Length; i++)
                 {
-                    Destroy(_letters[i]);
+                    if (_activePuzzle.CurrentLetters[j].ToString().Equals(_letters[i].GetComponent<TMP_Text>().text.ToLower()))
+                    {
+                        Destroy(_letters[j]);
+                    }
                 }
+
             }
         }
+
         _containers = null;
-
-
         _letters = null;
 
         _activePuzzle.SetPuzzleSolved();
@@ -90,7 +99,7 @@ public class LetterManager : MonoBehaviour
     public void Disable()
     {
         SolutionCheckAvailable = false;
-        
+
         if (_activePuzzle)
         {
             _activePuzzle.TogglePuzzleClickability();
@@ -106,13 +115,13 @@ public class LetterManager : MonoBehaviour
             }
             _letters = null;
         }
-        
+
         SolutionCheckAvailable = true;
     }
 
     public void CheckForSolution()
     {
-        if(!SolutionCheckAvailable) return;
+        //if (!SolutionCheckAvailable) return;
         ContainedLetters = "";
         foreach (var container in _containers)
         {
@@ -123,13 +132,14 @@ public class LetterManager : MonoBehaviour
                 {
                     ContainedLetters += letterContainer.ContainedLetter.TextContent;
                 }
-            }else
+            }
+            else
             {
                 ContainedLetters += ' ';
             }
-            
+
         }
-        Debug.Log(ContainedLetters);
+        //Debug.Log(ContainedLetters);
         if (ContainedLetters.ToUpper().Equals(_activePuzzle.Solution.ToUpper()))
         {
             ExitPuzzle();
