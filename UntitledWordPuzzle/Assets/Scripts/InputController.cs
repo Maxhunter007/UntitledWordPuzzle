@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,5 +52,11 @@ public class InputController : MonoBehaviour
     private void OnPointerUp(InputAction.CallbackContext context)
     {
         _mouseController.DropLetter();
+    }
+
+    private void OnDestroy()
+    {
+        _playerInput.Input.PickupLetter.started -= OnPointerDown;
+        _playerInput.Input.PickupLetter.canceled -= OnPointerUp;
     }
 }

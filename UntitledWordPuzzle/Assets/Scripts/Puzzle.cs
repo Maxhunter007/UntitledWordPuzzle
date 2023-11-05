@@ -23,7 +23,6 @@ public class Puzzle : MonoBehaviour
 
     public void SetPuzzleSolved()
     {
-        Debug.Log("Puzzle Solved");
         transform.GetComponent<SpriteRenderer>().sprite = solutionSprite;
         Destroy(transform.GetComponent<Collider2D>());
         //highlight weg?

@@ -163,12 +163,10 @@ public class LetterManager : MonoBehaviour
                 ContainedLetters += ' ';
             }
         }
-        Debug.Log(ContainedLetters);
         if (ContainedLetters.ToUpper().Equals(_activePuzzle.Solution.ToUpper()))
         {
             ExitPuzzle();
         }
         OnNextUpdate -= CheckForSolution;
     }
-
 }
