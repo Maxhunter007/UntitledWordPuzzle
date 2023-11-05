@@ -15,6 +15,7 @@ public class LetterManager : MonoBehaviour
     private GameObject[] _letters;
     private Sprite _boxSprite;
     [SerializeField] private string ContainedLetters;
+    private bool _activepuzzleSolved;
 
     public bool SolutionCheckAvailable = false;
 
@@ -66,7 +67,12 @@ public class LetterManager : MonoBehaviour
         
         if (_activePuzzle)
         {
-            _activePuzzle.TogglePuzzleClickability();
+            if(!_activepuzzleSolved)
+            {
+                _activePuzzle.TogglePuzzleClickability();
+            }
+            _activepuzzleSolved = false;
+
             for (int i = 0; i < _containers.Length; i++)
             {
                 Destroy(_containers[i]);
@@ -105,8 +111,10 @@ public class LetterManager : MonoBehaviour
         Debug.Log(ContainedLetters);
         if (ContainedLetters.ToUpper().Equals(_activePuzzle.Solution.ToUpper()))
         {
-            //Disable
+            _activepuzzleSolved = true;
+            Disable();
             _activePuzzle.SetPuzzleSolved();
+            _activePuzzle = null;
         }
     }
 
