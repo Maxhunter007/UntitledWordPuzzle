@@ -5,7 +5,8 @@ using UnityEngine.Serialization;
 
 public class Letter : MonoBehaviour
 {
-    [FormerlySerializedAs("_hasSnapPosition")] public bool HasSnapPosition;
+    public bool HasSnapPosition;
+    public bool IsInHand;
     private Vector3 _snapPosition;
 
     private Rigidbody2D _rigidbody;
@@ -25,19 +26,35 @@ public class Letter : MonoBehaviour
                 HasSnapPosition = false;
             }
         }
+
+        if (IsInHand)
+        {
+            transform.localPosition = Vector3.zero;
+        }
     }
     
     public void SnapToContainer(Vector3 position)
     {
         HasSnapPosition = true;
-        _rigidbody.gravityScale = 0;
+        DisableGravity();
         _snapPosition = position;
     }
 
     public void ReleaseSnap()
     {
         HasSnapPosition = false;
+        EnableGravity();
+    }
+
+    public void EnableGravity()
+    {
         _rigidbody.velocity = Vector2.zero;
         _rigidbody.gravityScale = 3;
+    }
+
+    public void DisableGravity()
+    {
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.gravityScale = 0;
     }
 }

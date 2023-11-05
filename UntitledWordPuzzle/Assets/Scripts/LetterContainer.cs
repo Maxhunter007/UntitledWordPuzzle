@@ -15,7 +15,12 @@ public class LetterContainer : MonoBehaviour
     {
         if (other.CompareTag("Letter"))
         {
-            other.GetComponent<Letter>().ReleaseSnap();
+            var letter = other.GetComponent<Letter>();
+            letter.ReleaseSnap();
+            if (letter.IsInHand)
+            {
+                letter.DisableGravity();
+            }
         }
     }
 }

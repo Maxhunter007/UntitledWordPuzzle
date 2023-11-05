@@ -22,9 +22,8 @@ public class MouseController : MonoBehaviour
             DropLetter();
         }
         letter.transform.SetParent(transform);
-        var rigidbody = letter.GetComponent<Rigidbody2D>();
-        rigidbody.gravityScale = 0;
-        rigidbody.velocity = Vector2.zero;
+        letter.DisableGravity();
+        letter.IsInHand = true;
         _letter = letter;
     }
 
@@ -33,9 +32,10 @@ public class MouseController : MonoBehaviour
         if (_letter)
         {
             _letter.transform.SetParent(null);
+            _letter.IsInHand = false;
             if (!_letter.HasSnapPosition)
             {
-                _letter.GetComponent<Rigidbody2D>().gravityScale = 3;
+                _letter.EnableGravity();
             }
         }
         _letter = null;
