@@ -28,8 +28,8 @@ public class LetterManager : MonoBehaviour
         
         for (int i = 0; i < _activePuzzle.LetterAmount; i++)
         {
-            var gameObject = Instantiate(ContainerPrefab,transform.parent);
-            gameObject.transform.localPosition = new Vector3(initializationPosition,7f);
+            var gameObject = Instantiate(ContainerPrefab, transform.parent);
+            gameObject.transform.localPosition = new Vector3(initializationPosition, 7f);
             initializationPosition += 2 * ContainerPrefab.transform.localScale.x * (ContainerDistance + _boxSprite.rect.width / _boxSprite.pixelsPerUnit / 2);
             _containers[i] = gameObject;
         }
