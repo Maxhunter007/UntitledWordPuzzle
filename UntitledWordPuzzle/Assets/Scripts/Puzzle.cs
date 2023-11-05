@@ -17,14 +17,14 @@ public class Puzzle : MonoBehaviour
 
     public void TogglePuzzleClickability()
     {
-        transform.GetComponent<BoxCollider2D>().enabled = !transform.GetComponent<BoxCollider2D>().enabled;
+        transform.GetComponent<Collider2D>().enabled = !transform.GetComponent<Collider2D>().enabled;
     }
 
     public void SetPuzzleSolved()
     {
         Debug.Log("Puzzle Solved");
         transform.GetComponent<SpriteRenderer>().sprite = solutionSprite;
-        transform.GetComponent<BoxCollider2D>().enabled = false;
+        Destroy(transform.GetComponent<Collider2D>());
         //highlight weg?
     }
 

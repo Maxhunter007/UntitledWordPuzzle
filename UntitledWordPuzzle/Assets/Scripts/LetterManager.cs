@@ -16,6 +16,7 @@ public class LetterManager : MonoBehaviour
     private Sprite _boxSprite;
     [SerializeField] private string ContainedLetters;
 
+
     public void Awake()
     {
         _boxSprite = Resources.Load<Sprite>("Pics/Box");
@@ -77,8 +78,10 @@ public class LetterManager : MonoBehaviour
                 ContainedLetters += letterContainer.ContainedLetter.TextContent;
             }
         }
+        Debug.Log(ContainedLetters);
         if (ContainedLetters.ToUpper().Equals(_activePuzzle.Solution.ToUpper()))
         {
+            //Disable
             _activePuzzle.SetPuzzleSolved();
         }
     }
