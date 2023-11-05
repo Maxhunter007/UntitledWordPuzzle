@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class LetterManager : MonoBehaviour
@@ -8,20 +9,16 @@ public class LetterManager : MonoBehaviour
 
     private Puzzle _activePuzzle;
     private GameObject[] _containers;
-    private Sprite _aSprite;
     private Sprite _boxSprite;
 
     public void Awake()
     {
-        _aSprite = Resources.Load<Sprite>("Pics/A");
         _boxSprite = Resources.Load<Sprite>("Pics/Box");
     }
 
     public void Enable(Puzzle puzzle)
     {
         _activePuzzle = puzzle;
-        _aSprite = Resources.Load<Sprite>("Pics/A");   //muss später raus
-        _boxSprite = Resources.Load<Sprite>("Pics/Box");
         _containers = new GameObject[_activePuzzle.LetterAmount];
 
         var initializationPosition = -(ContainerDistance + _boxSprite.rect.width * ContainerPrefab.transform.localScale.x / _boxSprite.pixelsPerUnit / 2) * (_activePuzzle.LetterAmount - 1);
@@ -44,6 +41,24 @@ public class LetterManager : MonoBehaviour
                 Destroy(_containers[i]);
             }
             _containers = null;
+        }
+    }
+
+    public void CheckForSolution()
+    {
+        var currentLetters = "";
+        foreach (var container in _containers)
+        {
+            var letterContainer = container.GetComponent<LetterContainer>();
+            if (letterContainer.ContainedLetter)
+            {
+                currentLetters += letterContainer.ContainedLetter.TextContent;
+            }
+        }
+
+        if (currentLetters.Equals(_activePuzzle.Solution))
+        {
+            _activePuzzle.SetPuzzleSolved();
         }
     }
 

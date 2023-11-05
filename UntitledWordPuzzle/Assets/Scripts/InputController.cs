@@ -23,7 +23,7 @@ public class InputController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         var mouseX = _playerInput.Input.Pan.ReadValue<float>();
         if (mouseX < 20f)

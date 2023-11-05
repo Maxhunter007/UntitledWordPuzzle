@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,12 +10,23 @@ public class Letter : MonoBehaviour
     public bool IsInHand;
     private Vector3 _snapPosition;
 
+    //Components
     private Rigidbody2D _rigidbody;
+    private TextMeshPro _textMesh;
+    
+    //Singletons
     private MouseController _mouseController;
+
+    public string TextContent{
+        get => _textMesh.text;
+        set => _textMesh.text = value;
+    }
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _textMesh = GetComponent<TextMeshPro>();
+        
         _mouseController = FindObjectOfType<MouseController>();
     }
 
