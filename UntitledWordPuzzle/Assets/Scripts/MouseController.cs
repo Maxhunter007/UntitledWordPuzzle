@@ -17,13 +17,8 @@ public class MouseController : MonoBehaviour
     
     public void PickUpLetter(Letter letter)
     {
-        if (_letter)
-        {
-            DropLetter();
-        }
-        letter.transform.SetParent(transform);
-        letter.DisableGravity();
-        letter.IsInHand = true;
+        DropLetter();
+        letter.PickUp();
         _letter = letter;
     }
 
@@ -31,12 +26,7 @@ public class MouseController : MonoBehaviour
     {
         if (_letter)
         {
-            _letter.transform.SetParent(null);
-            _letter.IsInHand = false;
-            if (!_letter.HasSnapPosition)
-            {
-                _letter.EnableGravity();
-            }
+            _letter.Drop();
         }
         _letter = null;
     }

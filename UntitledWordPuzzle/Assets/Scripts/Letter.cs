@@ -10,10 +10,12 @@ public class Letter : MonoBehaviour
     private Vector3 _snapPosition;
 
     private Rigidbody2D _rigidbody;
+    private MouseController _mouseController;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _mouseController = FindObjectOfType<MouseController>();
     }
 
     private void Update()
@@ -29,7 +31,7 @@ public class Letter : MonoBehaviour
 
         if (IsInHand)
         {
-            transform.localPosition = Vector3.zero;
+            _rigidbody.velocity = 10f * (transform.parent.position - transform.position);
         }
     }
     
@@ -46,7 +48,24 @@ public class Letter : MonoBehaviour
         EnableGravity();
     }
 
-    public void EnableGravity()
+    public void PickUp()
+    {
+        transform.SetParent(_mouseController.transform);
+        DisableGravity();
+        IsInHand = true;
+    }
+
+    public void Drop()
+    {
+        transform.SetParent(null);
+        IsInHand = false;
+        if (!HasSnapPosition)
+        {
+            EnableGravity();
+        }
+    }
+
+    private void EnableGravity()
     {
         _rigidbody.velocity = Vector2.zero;
         _rigidbody.gravityScale = 3;

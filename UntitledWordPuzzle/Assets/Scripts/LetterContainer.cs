@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class LetterContainer : MonoBehaviour
 {
+    public Letter ContainedLetter;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Letter"))
         {
-            other.GetComponent<Letter>().SnapToContainer(transform.position);
+            ContainedLetter = other.GetComponent<Letter>();
+            ContainedLetter.SnapToContainer(transform.position);
         }
     }
 
