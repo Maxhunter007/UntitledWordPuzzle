@@ -13,18 +13,14 @@ public class LetterManager : MonoBehaviour
     
     public void Awake()
     {
-        Enable();
-    }
-    public void Enable(Puzzle puzzle = null)
-    {
-        if(_activePuzzle)
-        {
-            _activePuzzle = puzzle;
-        }
-        else{
-
-        }
         _aSprite = Resources.Load<Sprite>("Pics/A");
+        _boxSprite = Resources.Load<Sprite>("Pics/Box");
+    }
+
+    public void Enable(Puzzle puzzle)
+    {
+        _activePuzzle = puzzle;
+        _aSprite = Resources.Load<Sprite>("Pics/A");   //muss später raus
         _boxSprite = Resources.Load<Sprite>("Pics/Box");
         _containers = new GameObject[_activePuzzle.LetterAmount];
 
@@ -39,9 +35,13 @@ public class LetterManager : MonoBehaviour
         }
     }
 
-    public void OnDisable()
+    public void Disable()
     {
         //alle children durchgehen & löschen
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(0).gameObject);
+        }
     }
 
 }

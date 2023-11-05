@@ -13,6 +13,7 @@ public class InputController : MonoBehaviour
     {
         _cam = Camera.main;
         _mouseController = FindObjectOfType<MouseController>();
+        _letterManager = FindObjectOfType<LetterManager>();
         
         _playerInput = new PlayerInput();
         _playerInput.Enable();
@@ -40,9 +41,9 @@ public class InputController : MonoBehaviour
         {
             _mouseController.PickUpLetter(hit.rigidbody.gameObject.GetComponent<Letter>());
         }
-        if (hit.collider && hit.rigidbody.gameObject.CompareTag("Puzzle"))
+        if (hit.collider && hit.collider.gameObject.CompareTag("Puzzle"))
         {
-            _letterManager.OnDisable();
+            _letterManager.Disable();
             _letterManager.Enable(hit.transform.gameObject.GetComponent<Puzzle>());
         }
     }
