@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Resources/Scenes/StartScreen.unity
+    guid: 2819eed89c8c8b64ab5705c96331c69c
+  - enabled: 1
     path: Assets/Resources/Scenes/Desert.unity
     guid: 9e7da6f46136012499873b5adf0bb27c
   - enabled: 1
