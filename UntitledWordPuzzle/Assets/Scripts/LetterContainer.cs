@@ -39,5 +39,6 @@ public class LetterContainer : MonoBehaviour
                 letter.DisableGravity();
             }
         }
+        _letterManager.CheckForSolution();
     }
 }
