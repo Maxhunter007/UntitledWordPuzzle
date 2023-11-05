@@ -8,6 +8,7 @@ public class Puzzle : MonoBehaviour
     public string Solution;
     public int LetterAmount => math.max(Solution.Length, CurrentLetters.Length);
     public Sprite solutionSprite;
+    public bool lastPuzzle;
 
     public Puzzle(string startWord, string solution)
     {

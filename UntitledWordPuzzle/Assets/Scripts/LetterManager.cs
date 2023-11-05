@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class LetterManager : MonoBehaviour
@@ -68,8 +70,20 @@ public class LetterManager : MonoBehaviour
         SolutionCheckAvailable = true;
     }
 
+    IEnumerator EndOfLevel()
+    {
+        _activePuzzle.SetPuzzleSolved();
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public void ExitPuzzle()
     {
+        if (_activePuzzle.lastPuzzle)
+        {
+            StartCoroutine(EndOfLevel());
+        }
+
         SolutionCheckAvailable = false;
         for (int i = 0; i < _letters.Length; i++)
         {
