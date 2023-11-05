@@ -835,7 +835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f66dd274fa7b61478802183d59dfc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLetters: twine
+  CurrentLetters: Twine
   Solution: wine
   solutionSprite: {fileID: 21300000, guid: 950eb7990d2769949af2561b05a70232, type: 3}
 --- !u!212 &1102788115
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f66dd274fa7b61478802183d59dfc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLetters: calendar
+  CurrentLetters: calendAR
   Solution: candle
   solutionSprite: {fileID: 21300000, guid: d50df87cd67c95844a395d8c6c1deec1, type: 3}
 --- !u!60 &1853498450
@@ -1405,6 +1405,7 @@ MonoBehaviour:
   LetterPrefab: {fileID: 4486873538150938614, guid: 7ed4ef1cf04cc9142ba5a2c6c93c4016, type: 3}
   ContainerDistance: 0.05
   ContainedLetters: 
+  SolutionCheckAvailable: 0
 --- !u!212 &1883513641
 SpriteRenderer:
   m_ObjectHideFlags: 0
