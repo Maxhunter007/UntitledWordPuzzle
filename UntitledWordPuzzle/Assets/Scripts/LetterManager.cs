@@ -16,6 +16,8 @@ public class LetterManager : MonoBehaviour
     private Sprite _boxSprite;
     [SerializeField] private string ContainedLetters;
 
+    public bool SolutionCheckAvailable = false;
+
 
     public void Awake()
     {
@@ -24,15 +26,23 @@ public class LetterManager : MonoBehaviour
     
     public void Enable(Puzzle puzzle)
     {
+        SolutionCheckAvailable = false;
+        
         puzzle.TogglePuzzleClickability();
         _activePuzzle = puzzle;
         _containers = new GameObject[_activePuzzle.LetterAmount];
         _letters = new GameObject[_activePuzzle.CurrentLetters.Length];
 
         var initializationPosition = -(ContainerDistance + _boxSprite.rect.width * ContainerPrefab.transform.localScale.x / _boxSprite.pixelsPerUnit / 2) * (_activePuzzle.LetterAmount - 1);
-
+        var spaces = 0;
         for (int i = 0; i < _activePuzzle.LetterAmount; i++)
         {
+            if (i < _activePuzzle.Solution.Length && _activePuzzle.Solution[i].Equals(' '))
+            {
+                initializationPosition += 2 * ContainerPrefab.transform.localScale.x * (ContainerDistance + _boxSprite.rect.width / _boxSprite.pixelsPerUnit / 2);
+                spaces++;
+                continue;
+            }
             var container = Instantiate(ContainerPrefab, transform.parent);
             container.transform.localPosition = new Vector3(initializationPosition, 7f);
             initializationPosition += 2 * ContainerPrefab.transform.localScale.x * (ContainerDistance + _boxSprite.rect.width / _boxSprite.pixelsPerUnit / 2);
@@ -42,14 +52,18 @@ public class LetterManager : MonoBehaviour
             {
                 Vector3 position = new(container.transform.position.x, container.transform.position.y);
                 var letter = Instantiate(LetterPrefab, position, Quaternion.identity);
-                letter.GetComponent<TMP_Text>().text = "" + _activePuzzle.CurrentLetters[i];
+                letter.GetComponent<TMP_Text>().text = "" + _activePuzzle.CurrentLetters[i-spaces];
                 _letters[i] = letter;
             }
         }
+
+        SolutionCheckAvailable = true;
     }
 
     public void Disable()
     {
+        SolutionCheckAvailable = false;
+        
         if (_activePuzzle)
         {
             _activePuzzle.TogglePuzzleClickability();
@@ -65,18 +79,28 @@ public class LetterManager : MonoBehaviour
             }
             _letters = null;
         }
+        
+        SolutionCheckAvailable = true;
     }
 
     public void CheckForSolution()
     {
+        if(!SolutionCheckAvailable) return;
         ContainedLetters = "";
         foreach (var container in _containers)
         {
-            var letterContainer = container.GetComponent<LetterContainer>();
-            if (letterContainer.ContainedLetter)
+            if (container)
             {
-                ContainedLetters += letterContainer.ContainedLetter.TextContent;
+                var letterContainer = container.GetComponent<LetterContainer>();
+                if (letterContainer.ContainedLetter)
+                {
+                    ContainedLetters += letterContainer.ContainedLetter.TextContent;
+                }
+            }else
+            {
+                ContainedLetters += ' ';
             }
+            
         }
         Debug.Log(ContainedLetters);
         if (ContainedLetters.ToUpper().Equals(_activePuzzle.Solution.ToUpper()))
