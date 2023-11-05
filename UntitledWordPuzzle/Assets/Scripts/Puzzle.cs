@@ -15,6 +15,11 @@ public class Puzzle : MonoBehaviour
         Solution = solution;
     }
 
+    public void TogglePuzzleClickability()
+    {
+        transform.GetComponent<BoxCollider2D>().enabled = !transform.GetComponent<BoxCollider2D>().enabled;
+    }
+
     public void SetPuzzleSolved()
     {
         Debug.Log("Puzzle Solved");

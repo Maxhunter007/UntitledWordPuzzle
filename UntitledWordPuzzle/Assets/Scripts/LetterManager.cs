@@ -23,6 +23,7 @@ public class LetterManager : MonoBehaviour
 
     public void Enable(Puzzle puzzle)
     {
+        puzzle.TogglePuzzleClickability();
         _activePuzzle = puzzle;
         _containers = new GameObject[_activePuzzle.LetterAmount];
         _letters = new GameObject[_activePuzzle.CurrentLetters.Length];
@@ -50,6 +51,7 @@ public class LetterManager : MonoBehaviour
     {
         if (_activePuzzle)
         {
+            _activePuzzle.TogglePuzzleClickability();
             for (int i = 0; i < _containers.Length; i++)
             {
                 Destroy(_containers[i]);
