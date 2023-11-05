@@ -37,10 +37,13 @@ public class LetterManager : MonoBehaviour
 
     public void Disable()
     {
-        //alle children durchgehen & löschen
-        for(int i = 0; i < transform.childCount; i++)
+        if (_activePuzzle)
         {
-            Destroy(transform.GetChild(0).gameObject);
+            for (int i = 0; i < _containers.Length; i++)
+            {
+                Destroy(_containers[i]);
+            }
+            _containers = null;
         }
     }
 
