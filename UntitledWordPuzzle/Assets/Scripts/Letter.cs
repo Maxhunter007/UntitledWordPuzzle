@@ -52,8 +52,11 @@ public class Letter : MonoBehaviour
     
     public void SnapToContainer(LetterContainer container)
     {
+        if (!HasSnapPosition)
+        {
+            DisableGravity();
+        }
         HasSnapPosition = true;
-        DisableGravity();
         _snapContainer = container;
     }
 

@@ -15,8 +15,7 @@ public class LetterContainer : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = new Ray(transform.position, Vector3.forward);
-        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 20, ~(1<<5));
+        RaycastHit2D hit = Physics2D.GetRayIntersection(_cam.ScreenPointToRay(_cam.WorldToScreenPoint(transform.position)), 20, ~(1<<5));
         if (hit.collider && hit.collider.gameObject.CompareTag("Letter"))
         {
             var letter = hit.collider.gameObject.GetComponent<Letter>();
