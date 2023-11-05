@@ -899,7 +899,7 @@ GameObject:
   - component: {fileID: 1552381235}
   - component: {fileID: 1552381238}
   m_Layer: 0
-  m_Name: Dinner_Eels
+  m_Name: Desert_Ship
   m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -917,9 +917,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f66dd274fa7b61478802183d59dfc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLetters: ship
+  CurrentLetters: SHIP
   Solution: SPHINX
   solutionSprite: {fileID: 21300000, guid: b88639cb23a6be24d823fa610906544f, type: 3}
+  lastPuzzle: 1
 --- !u!212 &1552381236
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -922,7 +922,7 @@ MonoBehaviour:
   CurrentLetters: BRIE
   Solution: bluebird
   solutionSprite: {fileID: 21300000, guid: 5f1a3e4ccb215df4499337b10c8d9452, type: 3}
-  lastPuzzle: 0
+  lastPuzzle: 1
 --- !u!212 &1102788115
 SpriteRenderer:
   m_ObjectHideFlags: 0
