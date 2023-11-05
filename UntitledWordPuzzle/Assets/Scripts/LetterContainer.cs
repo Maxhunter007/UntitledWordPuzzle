@@ -14,16 +14,18 @@ public class LetterContainer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Enter");
         if (other.CompareTag("Letter"))
         {
             ContainedLetter = other.GetComponent<Letter>();
-            ContainedLetter.SnapToContainer(transform.position);
+            ContainedLetter.SnapToContainer(this);
             _letterManager.CheckForSolution();
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        Debug.Log("Exit");
         if (other.CompareTag("Letter"))
         {
             var letter = other.GetComponent<Letter>();
@@ -31,7 +33,7 @@ public class LetterContainer : MonoBehaviour
             {
                 ContainedLetter = null;
             }
-            letter.ReleaseSnap();
+            letter.ReleaseSnap(this);
             if (letter.IsInHand)
             {
                 letter.DisableGravity();

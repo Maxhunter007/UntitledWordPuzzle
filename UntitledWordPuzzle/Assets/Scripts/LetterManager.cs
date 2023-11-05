@@ -20,7 +20,7 @@ public class LetterManager : MonoBehaviour
     {
         _boxSprite = Resources.Load<Sprite>("Pics/Box");
     }
-
+    
     public void Enable(Puzzle puzzle)
     {
         puzzle.TogglePuzzleClickability();

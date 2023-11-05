@@ -37,10 +37,6 @@ public class InputController : MonoBehaviour
     private void OnPointerDown(InputAction.CallbackContext context)
     {
         RaycastHit2D hit = Physics2D.GetRayIntersection(_cam.ScreenPointToRay(Mouse.current.position.value), 20, ~(1<<5));
-        if (hit.collider)
-        {
-            Debug.Log(hit.collider.gameObject.tag);
-        }
         if (hit.collider && hit.collider.gameObject.CompareTag("Letter"))
         {
             _mouseController.PickUpLetter(hit.rigidbody.gameObject.GetComponent<Letter>());

@@ -8,7 +8,9 @@ public class Letter : MonoBehaviour
 {
     public bool HasSnapPosition;
     public bool IsInHand;
-    private Vector3 _snapPosition;
+
+    private LetterContainer _snapContainer;
+    private Vector3 SnapPosition => _snapContainer.transform.position;
 
     //Components
     private Rigidbody2D _rigidbody;
@@ -34,7 +36,7 @@ public class Letter : MonoBehaviour
     {
         if (HasSnapPosition)
         {
-            _rigidbody.velocity = (_snapPosition - transform.position) * 3;
+            _rigidbody.velocity = (SnapPosition - transform.position) * 3;
             if (_rigidbody.velocity.magnitude < math.EPSILON)
             {
                 HasSnapPosition = false;
@@ -47,14 +49,23 @@ public class Letter : MonoBehaviour
         }
     }
     
-    public void SnapToContainer(Vector3 position)
+    public void SnapToContainer(LetterContainer container)
     {
         HasSnapPosition = true;
         DisableGravity();
-        _snapPosition = position;
+        _snapContainer = container;
     }
 
-    public void ReleaseSnap()
+    public void ReleaseSnap(LetterContainer container)
+    {
+        if (_snapContainer.Equals(container))
+        {
+            HasSnapPosition = false;
+            EnableGravity();
+        }
+    }
+
+    public void ReleaseAll()
     {
         HasSnapPosition = false;
         EnableGravity();
